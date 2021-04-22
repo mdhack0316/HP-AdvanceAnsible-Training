@@ -1,0 +1,16 @@
+---
+- hosts: node1
+  tasks:  
+  - name: installing packages
+    yum: 
+     name: httpd
+     state: present
+  - copy: 
+     content: "Hello World"
+     dest: /var/www/html/index.html
+    notify: restart server
+  handlers: 
+  - name: restart server
+    service: 
+     name: httpd
+     state: restarted

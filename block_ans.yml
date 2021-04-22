@@ -1,0 +1,22 @@
+---
+- hosts: node1
+  tasks: 
+  - block: 
+    - name: creating a file
+      copy: 
+       content: "Failed"
+       dest: /root/test/ansible/training/name.txt 
+    rescue:  
+    - name: creating directory
+      file: 
+       path: /root/test/ansible/training
+       state: directory
+    - copy: 
+       content: "Success"
+       dest: /root/test/ansible/training/name.txt
+
+
+    always: 
+    - name: always run 
+      debug: 
+       msg: playbook is running

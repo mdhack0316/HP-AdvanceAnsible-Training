@@ -1,0 +1,19 @@
+---
+- hosts: node1
+  tasks: 
+  - block: 
+    - name: create a file in a location 
+      copy: 
+       content: "Anything"
+       dest: /root/mayank/test/block.txt 
+
+    rescue: 
+    - name: create the directory
+      file: 
+       path: /root/mayank/test
+       state: directory
+
+    always: 
+    - name: always block
+      debug: 
+       msg: this always executes.

@@ -1,0 +1,12 @@
+---
+- hosts: node1
+  vars: 
+   password: redhat
+  tasks: 
+  - user: 
+     name: "{{ item }}"
+     state: present
+     password: "{{ password | password_hash('sha512') }}"
+    loop: 
+    - user1
+    - user2 

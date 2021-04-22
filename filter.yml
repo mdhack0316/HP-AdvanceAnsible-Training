@@ -1,0 +1,27 @@
+---
+- hosts: node2
+  vars: 
+   check: 
+    name: mayank
+    gender: male
+    tech: ansible 
+  tasks: 
+  - name: displying value of check
+    debug: 
+     msg: Hello "{{ item.key }}=  {{ item.value }}"
+    loop: "{{ check | dict2items  }}"
+
+
+- hosts: node2
+  vars: 
+   names: 
+    first: mayank
+    second: test1
+    third: test2
+
+  tasks: 
+  - name: adding multiple users
+    user: 
+     name: "{{ item.value  }}"
+     state: present 
+    loop: "{{ names | dict2items  }}"

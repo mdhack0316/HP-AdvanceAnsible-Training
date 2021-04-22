@@ -1,0 +1,13 @@
+---
+- name: Using Best Practices 
+  hosts: all   
+  tasks: 
+  - name: using correct module for install a software
+    yum: 
+     name: httpd
+     state: present
+    when: ansible_distribution == 'RedHat'
+  
+  - name: print a msg
+    debug: 
+     msg: Best Practices

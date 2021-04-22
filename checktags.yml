@@ -1,0 +1,24 @@
+---
+- hosts: node1
+  tasks: 
+  - name: installing packages
+    yum:  
+     name: ['ftp','vsftpd','bind']
+     state: present
+    tags: [install,never] 
+
+  - name: showing custom msg
+    debug: 
+     msg:  "ANy custom msg"
+    tags: msg
+
+  - name: creating a file
+    copy: 
+     content: Any Content
+     dest: /root/ansible.txt
+    tags: [never,file]
+
+  - name: using dbeug module
+    debug: 
+     msg: "ansible is great"
+    tags: always

@@ -1,0 +1,11 @@
+---
+- name: Using Strategy in Ansible 
+  serial: 1
+  strategy: free
+  hosts: all
+  tasks:  
+  - name: Print the mg 
+    debug: 
+     msg: "Hello From Strategy"
+  - name: running command
+    shell: whoami

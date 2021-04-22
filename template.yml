@@ -1,0 +1,27 @@
+---
+- name: Configuring Apche using templates
+  hosts: all
+  vars: 
+   hello: mayank
+  tasks:
+  - name: installing the package
+    apt:
+     name: apache2
+     state: present
+
+  - name: use template
+    template: 
+     src: index.html.j2
+     dest: /var/www/html/index.html
+
+  - name: starting the service
+    service: 
+     name: apache2
+     state: started
+
+  - name: creating a file
+    template: 
+     src: hosts.j2
+     dest: /root/test.hosts
+    tags: dns
+    delegate_to: node1

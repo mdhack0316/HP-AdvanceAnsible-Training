@@ -1,0 +1,22 @@
+---
+- hosts: node1
+  tasks: 
+  - name: msg
+    copy: 
+     content: Hello
+     dest: /root/test.txt 
+  - shell: touch /root/test.txt
+    notify: "restart web services"
+
+  handlers: 
+  - name: restart apache
+    service: 
+     name: httpd
+     state: started 
+    listen: "restart web services"
+  - name: installing 
+    yum: 
+     name: bind
+     state: present 
+    listen: "restart web services"
+     

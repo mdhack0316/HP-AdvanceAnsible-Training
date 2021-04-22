@@ -1,0 +1,10 @@
+---
+- hosts: node2
+  tasks: 
+  - shell: date
+  - shell: cal 
+  - shell: whoami
+  - shell: whereis date
+  - name: using date command
+    shell:  date
+  - shell:  cat /etc/hosts

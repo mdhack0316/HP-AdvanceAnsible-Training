@@ -1,0 +1,29 @@
+---
+- name: using handlers
+  vars: 
+   pkg_name: httpd
+   location: /var/www/html/
+   svc_name: httpd 
+  hosts: node1
+  tasks: 
+  - name: installing package
+    yum: 
+     name: "{{ pkg_name }}"
+     state: present 
+
+  - name: creating a file
+    copy: 
+     content: "Hi from {{ ansible_hostname }}"
+     dest: "{{ location }}/index.html"
+    notify: 
+    - restart server
+    - directory
+  handlers: 
+  - name: restart server
+    service: 
+     name: "{{ svc_name }}"
+     state: started 
+  - name: directory
+    file: 
+     path: /root/ansible/test
+     state: directory

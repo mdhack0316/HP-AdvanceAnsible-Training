@@ -1,0 +1,11 @@
+---
+- hosts: node2
+  tasks: 
+  - name: using debug module to display random msg 
+    debug: 
+     msg: "{{ item }}"
+    with_random_choice: 
+    - "Learning ansible"
+    - "Ansible roles"
+    -  "time is money"
+    -  "Do Nothing"

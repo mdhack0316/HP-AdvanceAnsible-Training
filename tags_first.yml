@@ -1,0 +1,37 @@
+---
+- name: Configuring Apache 
+  hosts: all 
+  tasks: 
+  - name: installing package
+    yum: 
+     name: httpd
+     state: present 
+    tags: never 
+    when: ansible_distribution == 'RedHat'
+
+  - name: installing package
+    apt: 
+     name: apache2
+     state: present 
+    when: ansible_distribution == 'Ubuntu'
+    tags: [content,never]
+
+  - name: creating content for the webserver
+    copy: 
+     content: "Hello World !!  ANSIBLEREDHAT  This is Ansible From {{ ansible_distribution }}"
+     dest: /var/www/html/index.html
+    tags: check
+
+  - name: starting the service 
+    service: 
+     name: httpd
+     state: started     
+    tags: always 
+    when: ansible_distribution == 'RedHat'
+
+    
+  - name: starting the service 
+    service: 
+     name: apache2
+     state: started     
+    when: ansible_distribution == 'Ubuntu'

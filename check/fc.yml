@@ -1,0 +1,16 @@
+---
+- hosts: all
+  vars: 
+   pkg_name: httpd
+   destination: /root/test.txt
+  tasks: 
+  - name: installing package
+    yum: 
+     name: "{{ pkg_name }}"
+     state: present
+    when: ansible_distribution == 'RedHat'
+  - name: creating a file
+    copy: 
+     content: "Hello World"
+     dest: "{{ destination }}"
+    tags: content

@@ -1,0 +1,11 @@
+---
+- hosts: node1
+  vars: 
+   username: test1
+  tasks: 
+  - user: 
+     name: "{{ username }}"
+     state: present  
+  - template: 
+     src: user.j2
+     dest: /etc/mayank

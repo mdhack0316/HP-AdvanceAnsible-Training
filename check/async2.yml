@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  tasks: 
+  - command: sleep 60
+    async: 70 
+    poll: 35
+  - shell: echo hi > /root/mayank

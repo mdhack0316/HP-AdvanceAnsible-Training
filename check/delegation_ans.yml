@@ -1,0 +1,13 @@
+---
+- hosts: all
+  tasks: 
+  - name: creating  files
+    copy: 
+     content: "Hello From Ansible Delegation"
+     dest: /root/ansible.txt
+    delegate_to: localhost
+  - name: creating  files
+    copy: 
+     content: "Hello From Ansible"
+     dest: /root/ansible.txt
+

@@ -1,0 +1,7 @@
+---
+- hosts: node1
+  tasks: 
+  - name: display username
+    debug: 
+     msg: "check" 
+    loop: "{{ query('lines','cat /root/user.txt')}}"

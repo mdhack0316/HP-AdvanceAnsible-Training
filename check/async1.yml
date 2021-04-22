@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  tasks: 
+  - command: sleep 60
+    async: 10
+    poll: 1

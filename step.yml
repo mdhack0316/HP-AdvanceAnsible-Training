@@ -1,0 +1,12 @@
+---
+- name: Testing Step 
+  hosts: node1
+  tasks: 
+  - name: creating a file
+    copy: 
+     content: "Hello Ansible Step"
+     dest: /root/teststep.txt
+  - name: creating a directory
+    file: 
+     path: /root/test/step 
+     state: directory

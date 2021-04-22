@@ -1,0 +1,27 @@
+---
+- hosts: all 
+  tasks: 
+  - name: creating a directory
+    file: 
+     path: /tmp/data12
+     state: directory
+
+  - name: creatinga file
+    copy: 
+     content: "Lockdown"
+     dest: /root/test.txt
+    delegate_to: localhost
+
+  - name: creatinga file
+    copy: 
+     content: "Curfew"
+     dest: /root/file1.txt
+    delegate_to: node1
+
+  - name: creating a file in localhost
+    local_action: copy content="Hello World" dest=/usr/file1.txt
+
+  - name: running a command
+    local_action: 
+     module: command
+     _raw_params:  "whoami"

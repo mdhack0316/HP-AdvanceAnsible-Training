@@ -1,0 +1,13 @@
+---
+- hosts: all 
+  #strategy: free
+  #serial: 1 
+  tasks: 
+  - name: print a msg
+    debug: 
+     msg: "Hi Ansible"
+
+  - name: creating a file
+    copy: 
+     content: "Anything"
+     dest: /root/qwerty.txt

@@ -1,0 +1,150 @@
+[0;34mUsing /etc/ansible/ansible.cfg as config file[0m
+[1;35m[WARNING]: Could not match supplied host pattern, ignoring: instance_group_*[0m
+
+PLAY [tower:database:instance_group_*] *****************************************************************************
+
+TASK [check_config_static : Ensure expected variables are defined] *************************************************
+[0;36mskipping: [localhost] => (item=tower_package_name)  => {"ansible_loop_var": "item", "changed": false, "item": "tower_package_name", "skip_reason": "Conditional result was False"}[0m
+[0;36mskipping: [localhost] => (item=tower_package_version)  => {"ansible_loop_var": "item", "changed": false, "item": "tower_package_version", "skip_reason": "Conditional result was False"}[0m
+[0;36mskipping: [localhost] => (item=tower_package_release)  => {"ansible_loop_var": "item", "changed": false, "item": "tower_package_release", "skip_reason": "Conditional result was False"}[0m
+
+TASK [check_config_static : Detect unsupported HA inventory file] **************************************************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [check_config_static : Ensure at least one tower host is defined] *********************************************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [check_config_static : Ensure only one database host exists] **************************************************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [check_config_static : Ensure when postgres host is defined that the port is defined] *************************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [check_config_static : Ensure that when a database host is specified, that pg_host is defined] ****************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [check_config_static : Ensure that when a database host is specified, that pg_port is defined] ****************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [check_config_static : HA mode requires an external postgres database with pg_host defined] *******************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [check_config_static : HA mode requires an external postgres database with pg_port defined] *******************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [config_dynamic : Set database to internal or external] *******************************************************
+[0;32mok: [localhost] => {"ansible_facts": {"config_dynamic_database": "internal"}, "changed": false}[0m
+
+TASK [config_dynamic : Database decision] **************************************************************************
+[0;32mok: [localhost] => {[0m
+[0;32m    "config_dynamic_database": "internal"[0m
+[0;32m}[0m
+
+TASK [config_dynamic : Set postgres host and port to local if not set] *********************************************
+[0;32mok: [localhost] => {"ansible_facts": {"pg_host": "127.0.0.1", "pg_port": 5432}, "changed": false}[0m
+
+TASK [config_dynamic : Ensure connectivity to hosts and gather facts] **********************************************
+[0;32mok: [localhost][0m
+
+TASK [config_dynamic : Get effective uid] **************************************************************************
+[0;33mchanged: [localhost] => {"changed": true, "cmd": ["id", "-u"], "delta": "0:00:00.003646", "end": "2021-04-17 07:43:26.659840", "rc": 0, "start": "2021-04-17 07:43:26.656194", "stderr": "", "stderr_lines": [], "stdout": "0", "stdout_lines": ["0"]}[0m
+
+TASK [config_dynamic : Ensure user is root] ************************************************************************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+PLAY [Group nodes by OS distribution] ******************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************************
+[0;32mok: [localhost][0m
+
+TASK [group hosts by distribution] *********************************************************************************
+[1;35m[WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details[0m
+[0;32mok: [localhost] => {"add_group": "RedHat-8.3", "changed": false, "parent_groups": ["all"]}[0m
+[1;35m[WARNING]: Could not match supplied host pattern, ignoring: RedHat-7*[0m
+[1;35m[WARNING]: Could not match supplied host pattern, ignoring: CentOS-7*[0m
+[1;35m[WARNING]: Could not match supplied host pattern, ignoring: OracleLinux-7*[0m
+[1;35m[WARNING]: Could not match supplied host pattern, ignoring: CentOS-8*[0m
+[1;35m[WARNING]: Could not match supplied host pattern, ignoring: Ubuntu-16.04[0m
+
+PLAY [Group supported distributions] *******************************************************************************
+
+TASK [Retrieve the point in time version (CentOS)] *****************************************************************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [Set the proper ansible_distribution_version fact (CentOS)] ***************************************************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [group hosts for supported distributions] *********************************************************************
+[0;32mok: [localhost] => {"add_group": "supported", "changed": false, "parent_groups": ["all"]}[0m
+
+PLAY [Group deprecated distributions] ******************************************************************************
+[0;36mskipping: no hosts matched[0m
+
+PLAY [Ensure all node OS distributions are supported] **************************************************************
+[0;36mskipping: no hosts matched[0m
+[1;35m[WARNING]: Could not match supplied host pattern, ignoring: Ubuntu-*[0m
+[1;35m[WARNING]: Could not match supplied host pattern, ignoring: isolated_group_*[0m
+
+PLAY [Ensure all isolated node OS distributions are supported] *****************************************************
+[0;36mskipping: no hosts matched[0m
+[1;35m[WARNING]: Could not match supplied host pattern, ignoring: deprecated[0m
+
+PLAY [Check for deprecated platforms] ******************************************************************************
+[0;36mskipping: no hosts matched[0m
+
+PLAY [Define role discovered variables, usable throughout the playbook] ********************************************
+
+TASK [postgres : include_vars] *************************************************************************************
+[0;32mok: [localhost] => (item=/etc/ansible/check/ansible-tower-setup-3.5.0-1/roles/postgres/vars/../vars/RedHat-8.yml) => {"ansible_facts": {"pg_conf_dir": "/var/lib/pgsql/data", "pg_conf_location": "{{ pg_conf_dir }}/postgresql.conf", "pg_hba_location": "{{ pg_conf_dir }}/pg_hba.conf", "pg_initdb_command": "postgresql-setup initdb", "postgres_init_name": "postgresql"}, "ansible_included_var_files": ["/etc/ansible/check/ansible-tower-setup-3.5.0-1/roles/postgres/vars/RedHat-8.yml"], "ansible_loop_var": "item", "changed": false, "item": "/etc/ansible/check/ansible-tower-setup-3.5.0-1/roles/postgres/vars/../vars/RedHat-8.yml"}[0m
+
+TASK [postgres : include_tasks] ************************************************************************************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [postgres : include_tasks] ************************************************************************************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [nginx : include_vars] ****************************************************************************************
+[0;32mok: [localhost] => (item=/etc/ansible/check/ansible-tower-setup-3.5.0-1/roles/nginx/vars/../vars/default.yml) => {"ansible_facts": {}, "ansible_included_var_files": ["/etc/ansible/check/ansible-tower-setup-3.5.0-1/roles/nginx/vars/default.yml"], "ansible_loop_var": "item", "changed": false, "item": "/etc/ansible/check/ansible-tower-setup-3.5.0-1/roles/nginx/vars/../vars/default.yml"}[0m
+
+TASK [nginx : include_tasks] ***************************************************************************************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [include supervisor variables] ********************************************************************************
+[0;32mok: [localhost] => (item=/etc/ansible/check/ansible-tower-setup-3.5.0-1/roles/supervisor/vars/../vars/RedHat.yml) => {"ansible_facts": {"sup_conf_location": "/etc/supervisord.d/tower.ini", "sup_dispatcher_add_lang": false, "sup_init_name": "supervisord", "sup_socket_location": "/var/run/supervisor/supervisor.sock"}, "ansible_included_var_files": ["/etc/ansible/check/ansible-tower-setup-3.5.0-1/roles/supervisor/vars/RedHat.yml"], "ansible_loop_var": "item", "changed": false, "item": "/etc/ansible/check/ansible-tower-setup-3.5.0-1/roles/supervisor/vars/../vars/RedHat.yml"}[0m
+
+TASK [supervisor : include_tasks] **********************************************************************************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [awx_install : include_vars] **********************************************************************************
+[0;32mok: [localhost] => (item=/etc/ansible/check/ansible-tower-setup-3.5.0-1/roles/awx_install/vars/../../supervisor/vars/RedHat.yml) => {"ansible_facts": {"sup_conf_location": "/etc/supervisord.d/tower.ini", "sup_dispatcher_add_lang": false, "sup_init_name": "supervisord", "sup_socket_location": "/var/run/supervisor/supervisor.sock"}, "ansible_included_var_files": ["/etc/ansible/check/ansible-tower-setup-3.5.0-1/roles/supervisor/vars/RedHat.yml"], "ansible_loop_var": "item", "changed": false, "item": "/etc/ansible/check/ansible-tower-setup-3.5.0-1/roles/awx_install/vars/../../supervisor/vars/RedHat.yml"}[0m
+
+TASK [awx_install : include_tasks] *********************************************************************************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+PLAY [Verify consistency of inventory contents] ********************************************************************
+
+TASK [Check that no instance groups are named tower] ***************************************************************
+[0;36mskipping: [localhost] => (item=all)  => {"ansible_loop_var": "item", "changed": false, "item": "all", "skip_reason": "Conditional result was False"}[0m
+[0;36mskipping: [localhost] => (item=ungrouped)  => {"ansible_loop_var": "item", "changed": false, "item": "ungrouped", "skip_reason": "Conditional result was False"}[0m
+[0;36mskipping: [localhost] => (item=tower)  => {"ansible_loop_var": "item", "changed": false, "item": "tower", "skip_reason": "Conditional result was False"}[0m
+[0;36mskipping: [localhost] => (item=database)  => {"ansible_loop_var": "item", "changed": false, "item": "database", "skip_reason": "Conditional result was False"}[0m
+[0;36mskipping: [localhost] => (item=RedHat-8.3)  => {"ansible_loop_var": "item", "changed": false, "item": "RedHat-8.3", "skip_reason": "Conditional result was False"}[0m
+[0;36mskipping: [localhost] => (item=supported)  => {"ansible_loop_var": "item", "changed": false, "item": "supported", "skip_reason": "Conditional result was False"}[0m
+
+TASK [Check that controller uses queue name and not group name] ****************************************************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [Check that group names do not conflict with instance names] **************************************************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+PLAY [Sanity check and prep Tower node(s)] *************************************************************************
+
+TASK [preflight : Preflight check - require new enough Ansible] ****************************************************
+[0;36mskipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}[0m
+
+TASK [preflight : Preflight check - Fail if this machine lacks sufficient RAM.] ************************************
+[0;31mfatal: [localhost]: FAILED! => {"changed": false, "msg": "This machine does not have sufficient RAM to run Ansible Tower."}[0m
+
+PLAY RECAP *********************************************************************************************************
+[0;31mlocalhost[0m                  : [0;32mok=12  [0m [0;33mchanged=1   [0m unreachable=0    [0;31mfailed=1   [0m [0;36mskipped=21  [0m rescued=0    ignored=0   
+

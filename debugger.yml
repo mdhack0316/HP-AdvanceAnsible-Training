@@ -1,0 +1,9 @@
+---
+- hosts: node1
+  #strategy: debug
+  debugger:  on_failed
+  vars: 
+   msg: Hello 
+  tasks: 
+  - debug: 
+       msg: "{{ msq }}"

@@ -1,0 +1,16 @@
+---
+- hosts: node2
+  tasks: 
+  - name: diplay msg in breaks
+    debug:
+     msg: | 
+             This String 
+             has several
+             break 
+  - name: diplay msg in a single line
+    debug: 
+     msg: > 
+           This string will not
+           contain any break. 
+           seprated lines are joined
+           by a space character.

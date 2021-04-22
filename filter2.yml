@@ -1,0 +1,15 @@
+---
+- hosts: node2
+  vars: 
+   names: 
+   - mayank 
+   - ujjwal
+   - cricket 
+  tasks: 
+  - name: displying msg
+    debug: 
+     msg: "{{ names[1] }}"
+  - name: using assert to match the values
+    assert: 
+     that: 
+     - names[2] == 'ujjwal'

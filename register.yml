@@ -1,0 +1,29 @@
+---
+- hosts: node1
+  ignore_errors: yes
+  tasks: 
+  - name: installing a aasoftware
+    copy: 
+     content: /root/ksk#75@/&%%^%
+     dest: /root/mayank/dsjcbhds/dsjd.txt
+    register:  yum_output
+
+  - name: installing a aasoftware
+    copy: 
+     content: /root/ksk#75@/&%%^%
+     dest: /root/mayank/dsjcbhdscjhds/ds/dsjd.txt
+    register:  yum_output_a
+
+  - name: msg
+    debug: 
+     msg: file  creation is susccesful 
+    when: yum_output.failed == false 
+  - name: msg
+    debug: 
+     msg: file  creation is failed 
+    when: yum_output.failed == true
+
+  - name: msg
+    debug: 
+     msg: playbook was failed 
+    when: yum_output.failed == true and yum_output_a.failed == true 

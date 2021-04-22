@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  debugger: on_failed 
+  tasks: 
+  - name: run a date command
+    shell: dateq

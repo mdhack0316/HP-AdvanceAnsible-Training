@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  tasks: 
+  - command: sleep 100  
+  - name: creaing a file
+    copy: 
+     content: "Hello World"
+     dest: /tmp/hello.txt
